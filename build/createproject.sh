@@ -68,11 +68,11 @@ else
     echo "Created Directory: $dst"
 
     cd -- "$src"
-    cp -vr -- css js img build *.html *.xml *.txt *.png *.ico .htaccess "$dst"
+    cp -vr -- static build *.html *.xml *.txt *.png *.ico .htaccess "$dst"
 
     #success message
     echo "Created Project: $dst"
 fi
 
 read -p "Initiate SASS? (y/n)"
-["$REPLY" == "y"] || compass create $dst --syntax sass --sass-dir "src/sass" --css-dir "static/css" --javascripts-dir "static/js" --images-dir "static/images" >/dev/null
+[ "$REPLY" == "y" ] || compass create $dstcd bui --syntax sass --sass-dir "src/sass" --css-dir "static/css" --javascripts-dir "static/js" --images-dir "static/images" >/dev/null
