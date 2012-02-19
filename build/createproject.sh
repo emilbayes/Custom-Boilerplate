@@ -27,20 +27,12 @@
 #
 
 # find project root (also ensure script is ran from within repo)
-src=$(git rev-parse --show-toplevel) || {
-  echo "try running the script from within html5-boilerplate directories." >&2
-  exit 1
-}
-[[ -d $src ]] || {
-  echo "fatal: could not determine html5-boilerplate's root directory." >&2
-  echo "try updating git." >&2
-  exit 1
-}
+src=$1
 
-if [ $# -eq 1 ]
+if [ $# -eq 2 ]
 then
     # get a name for new project from command line arguments
-    name="$1"
+    name="$2"
 fi
 
 # get a name for new project from input
@@ -54,7 +46,7 @@ if [[ "$name" = /* ]]
 then
     dst=$name
 else
-    dst=$src/../$name
+    dst="$PWD/$name"
 fi
 
 if [[ -d $dst ]]
@@ -68,11 +60,12 @@ else
     echo "Created Directory: $dst"
 
     cd -- "$src"
+
     cp -vr -- static build *.html *.xml *.txt *.png *.ico .htaccess "$dst"
 
     #success message
     echo "Created Project: $dst"
 fi
 
-read -p "Initiate SASS? (y/n)"
-[ "$REPLY" == "y" ] || compass create $dstcd bui --syntax sass --sass-dir "src/sass" --css-dir "static/css" --javascripts-dir "static/js" --images-dir "static/images" >/dev/null
+read -p "Initiate SASS? (y/n): "
+[ "$REPLY" != "y" ] || compass create "$dst" --syntax sass --sass-dir "src/sass" --css-dir "static/css" --javascripts-dir "static/js" --images-dir "static/images"
