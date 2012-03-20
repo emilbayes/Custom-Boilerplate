@@ -68,4 +68,11 @@ else
 fi
 
 read -p "Initiate SASS? (y/n): "
-[ "$REPLY" != "y" ] || compass create "$dst" --syntax sass --sass-dir "src/sass" --css-dir "static/css" --javascripts-dir "static/js" --images-dir "static/images"
+
+[ "$REPLY" != "y" ] || compass create "$dst" --syntax sass --sass-dir "src/sass" --css-dir "static/css" --javascripts-dir "static/js" --images-dir "static/img"
+
+cat <<ENDMESSAGE
+    What's next?
+        initServer
+        remamp
+ENDMESSAGE
